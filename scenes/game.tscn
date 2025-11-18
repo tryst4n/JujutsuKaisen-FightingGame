@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0bi2aetyewgn"]
+
+[ext_resource type="PackedScene" uid="uid://dbyyv1pqf8ybn" path="res://scenes/sukuna.tscn" id="1_uwrxv"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uwrxv"]
+distance = -345.0
+
+[node name="game" type="Node2D"]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(595, 95)
+shape = SubResource("WorldBoundaryShape2D_uwrxv")
+
+[node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+position = Vector2(591, 331)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(586, 382)
+scale = Vector2(0.29242498, 0.29242498)
+zoom = Vector2(5, 5)
