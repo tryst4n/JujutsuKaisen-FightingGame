@@ -3,7 +3,14 @@ extends CharacterBody2D
 
 const SPEED = 150.0
 const JUMP_VELOCITY = -400.0
-@onready var animated_sprite = $AnimatedSprite2D
+@onready var sprite = $Sprite2D
+@onready var anim_tree : AnimationTree =  $AnimationTree
+
+func _ready():
+	anim_tree.active = true
+
+func _process(delta):
+	update_animation_parameters()
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -17,22 +24,29 @@ func _physics_process(delta: float) -> void:
 	#get the input direction: -1, 0, 1
 	var direction := Input.get_axis("move_left", "move_right")
 	
-	#flip the sprite
-	if direction > 0 : 
-		animated_sprite.flip_h = false
-	elif direction < 0 :
-		animated_sprite.flip_h = true
-		
-	#Play running animations
-	if direction == 0 :
-		animated_sprite.play("idle")
-	else :
-		animated_sprite.play("run")
-	
-	#movements	
+	#horizontal movement
 	if direction:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+	
+func update_animation_parameters():
+	var direction := Input.get_axis("move_left", "move_right")
+	#flip the sprite depending on facing direction
+	if direction > 0 : 
+		sprite.flip_h = false
+	elif direction < 0 :
+		sprite.flip_h = true
+		
+	if(direction == 0) :
+		anim_tree["parameters/conditions/idle"] = true
+		anim_tree["parameters/conditions/is_running"] = false
+		anim_tree["parameters/conditions/start_run"] = false
+	else:
+		anim_tree["parameters/conditions/idle"] = false
+		anim_tree["parameters/conditions/start_run"] = true
+		#when start_run animation will finish, run animation will start as set in the AnimationTree StateMachine
+		anim_tree["parameters/conditions/is_running"] = true
+		
