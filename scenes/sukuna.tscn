@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dbyyv1pqf8ybn"]
+[gd_scene load_steps=48 format=3 uid="uid://dbyyv1pqf8ybn"]
 
 [ext_resource type="Script" uid="uid://cdtngaf32opdk" path="res://scripts/sukuna.gd" id="1_cl4kx"]
 [ext_resource type="Texture2D" uid="uid://b7uxqpfwhnh88" path="res://assets/sprites/idleSukuna/1.png" id="1_dqkch"]
@@ -11,7 +11,14 @@
 [ext_resource type="Texture2D" uid="uid://bu0qxrhxm5jq3" path="res://assets/sprites/runSukuna/Running-7.png" id="9_3qfdi"]
 [ext_resource type="Texture2D" uid="uid://de15ylk8cheau" path="res://assets/sprites/runSukuna/Running-8.png" id="10_j4c4v"]
 [ext_resource type="Texture2D" uid="uid://cb7l8vc7grfn7" path="res://assets/sprites/runSukuna/Running-2.png" id="12_j4c4v"]
+[ext_resource type="Texture2D" uid="uid://bc5gewhqsjoop" path="res://assets/sprites/jumpSukuna/Jump-1.png" id="13_dci4k"]
 [ext_resource type="Texture2D" uid="uid://c65hrknhqcpqs" path="res://assets/sprites/runSukuna/Running-3.png" id="13_p5111"]
+[ext_resource type="Texture2D" uid="uid://cq1ac3als5c7e" path="res://assets/sprites/jumpSukuna/Jump-2.png" id="14_a7x0u"]
+[ext_resource type="Texture2D" uid="uid://hce67kgi14pl" path="res://assets/sprites/jumpSukuna/Jump-3.png" id="15_oq0it"]
+[ext_resource type="Texture2D" uid="uid://dtr8bbomk0m2u" path="res://assets/sprites/jumpSukuna/Jump-4.png" id="16_r7kr0"]
+[ext_resource type="Texture2D" uid="uid://cxjtcrdeki1cm" path="res://assets/sprites/jumpSukuna/Jump-5.png" id="17_5ybbw"]
+[ext_resource type="Texture2D" uid="uid://chpbfwxol8416" path="res://assets/sprites/jumpSukuna/Jump-6.png" id="18_x1dc4"]
+[ext_resource type="Texture2D" uid="uid://b5a2lmrhsallm" path="res://assets/sprites/jumpSukuna/Jump-7.png" id="19_fgs2s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cl4kx"]
 size = Vector2(17, 20)
@@ -81,14 +88,27 @@ tracks/0/keys = {
 "values": [ExtResource("12_j4c4v"), ExtResource("12_j4c4v"), ExtResource("13_p5111")]
 }
 
-[sub_resource type="Animation" id="Animation_6mmyb"]
+[sub_resource type="Animation" id="Animation_7sa81"]
 resource_name = "jump"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("13_dci4k"), ExtResource("14_a7x0u"), ExtResource("15_oq0it"), ExtResource("16_r7kr0"), ExtResource("17_5ybbw"), ExtResource("18_x1dc4"), ExtResource("19_fgs2s")]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nwqgb"]
 _data = {
 &"RESET": SubResource("Animation_j4c4v"),
 &"idle": SubResource("Animation_3qfdi"),
-&"jump": SubResource("Animation_6mmyb"),
+&"jump": SubResource("Animation_7sa81"),
 &"run": SubResource("Animation_p5111"),
 &"startrun": SubResource("Animation_nwqgb")
 }
@@ -108,9 +128,14 @@ blend_point_1/pos = 1.0
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3qfdi"]
 animation = &"jump"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dci4k"]
+animation = &"jump"
+
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_3qfdi"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_3qfdi")
-blend_point_0/pos = -0.1
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_dci4k")
+blend_point_1/pos = 0.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6mmyb"]
 animation = &"run"
@@ -148,24 +173,36 @@ advance_condition = &"idle"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p5111"]
 advance_mode = 2
-advance_condition = &"jump"
+advance_condition = &"is_jumping"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nwqgb"]
 advance_mode = 2
 advance_condition = &"is_running"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6mmyb"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ab5ah"]
+advance_mode = 2
+advance_condition = &"is_jumping"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_at7go"]
+advance_mode = 2
+advance_condition = &"is_jumping"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_fcash"]
 states/End/position = Vector2(832, 133)
 states/Start/position = Vector2(224, 133)
 states/idle/node = SubResource("AnimationNodeBlendSpace1D_fgs2s")
-states/idle/position = Vector2(385, 133)
+states/idle/position = Vector2(365, 185)
 states/jump/node = SubResource("AnimationNodeBlendSpace1D_3qfdi")
-states/jump/position = Vector2(539, -39)
+states/jump/position = Vector2(539, -40)
 states/run/node = SubResource("AnimationNodeBlendSpace1D_w016k")
-states/run/position = Vector2(690, 133)
+states/run/position = Vector2(736, 194)
 states/startrun/node = SubResource("AnimationNodeBlendSpace1D_at7go")
-states/startrun/position = Vector2(539, 83)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_aj76c"), "idle", "startrun", SubResource("AnimationNodeStateMachineTransition_dci4k"), "startrun", "run", SubResource("AnimationNodeStateMachineTransition_a7x0u"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_3qfdi"), "startrun", "idle", SubResource("AnimationNodeStateMachineTransition_j4c4v"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_p5111"), "jump", "run", SubResource("AnimationNodeStateMachineTransition_nwqgb")]
+states/startrun/position = Vector2(539, 133)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_aj76c"), "idle", "startrun", SubResource("AnimationNodeStateMachineTransition_dci4k"), "startrun", "run", SubResource("AnimationNodeStateMachineTransition_a7x0u"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_3qfdi"), "startrun", "idle", SubResource("AnimationNodeStateMachineTransition_j4c4v"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_p5111"), "jump", "run", SubResource("AnimationNodeStateMachineTransition_nwqgb"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_6mmyb"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_ab5ah"), "startrun", "jump", SubResource("AnimationNodeStateMachineTransition_at7go")]
 graph_offset = Vector2(0, -80.99259)
 
 [node name="Sukuna" type="CharacterBody2D"]
@@ -191,8 +228,8 @@ scale = Vector2(0.0069011445, 0.0069011445)
 tree_root = SubResource("AnimationNodeStateMachine_fcash")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/idle = false
+parameters/conditions/is_jumping = false
 parameters/conditions/is_running = false
-parameters/conditions/jump = false
 parameters/conditions/start_run = false
 parameters/idle/blend_position = 0.0
 parameters/jump/blend_position = 0.0

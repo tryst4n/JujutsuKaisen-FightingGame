@@ -9,7 +9,7 @@ const JUMP_VELOCITY = -400.0
 func _ready():
 	anim_tree.active = true
 
-func _process(delta):
+func _process(_delta):
 	update_animation_parameters()
 
 func _physics_process(delta: float) -> void:
@@ -34,16 +34,27 @@ func _physics_process(delta: float) -> void:
 	
 func update_animation_parameters():
 	var direction := Input.get_axis("move_left", "move_right")
+	var is_jumping = !(velocity.y == 0) #if velocity in y = 0, character is jumping
 	#flip the sprite depending on facing direction
 	if direction > 0 : 
 		sprite.flip_h = false
 	elif direction < 0 :
 		sprite.flip_h = true
-		
-	if(direction == 0) :
-		anim_tree["parameters/conditions/idle"] = true
-		anim_tree["parameters/conditions/is_running"] = false
+	
+	#HANDLE JUMPING
+	if is_jumping :
+		anim_tree["parameters/conditions/idle"] = false
 		anim_tree["parameters/conditions/start_run"] = false
+		anim_tree["parameters/conditions/is_running"] = false
+		anim_tree["parameters/conditions/is_jumping"] = true
+		return
+	anim_tree["parameters/conditions/is_jumping"] = false
+	
+	#HANDLE IDLE / RUN
+	if direction == 0 :
+		anim_tree["parameters/conditions/idle"] = true
+		anim_tree["parameters/conditions/start_run"] = false
+		anim_tree["parameters/conditions/is_running"] = false
 	else:
 		anim_tree["parameters/conditions/idle"] = false
 		anim_tree["parameters/conditions/start_run"] = true
