@@ -5,6 +5,8 @@ const SPEED = 150.0
 const JUMP_VELOCITY = -400.0
 @onready var sprite = $Sprite2D
 @onready var anim_tree : AnimationTree =  $AnimationTree
+@onready var sukuna = $"."
+var dismantle_scene_path=preload("res://scenes/dismantle.tscn")
 
 func _ready():
 	anim_tree.active = true
@@ -29,8 +31,28 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+		
+	#Shooting Dismantle
+	if Input.is_action_just_pressed("main_weapon") :
+		shootDismantle()
 
 	move_and_slide()
+	
+func shootDismantle():
+	var dismantle=dismantle_scene_path.instantiate()
+	var spawn_distance = 20  # pixels
+
+	#get mosue position
+	var mouse_pos = get_global_mouse_position()
+	#computes a vector between player and the mouse and convert it to an angle in radians
+	var direction = (mouse_pos - global_position).angle()
+	var spawn_offset = Vector2(spawn_distance, 0).rotated(direction) # spawn_offset rotates the spawn_distance to match the direction(mouse position)
+	
+	dismantle.dir=direction # the projectile's movement direction in radians
+	dismantle.pos=sukuna.global_position + spawn_offset# starting position of projectile + the offset
+	dismantle.rota=direction # rotation of the projectile so it faces the right direction (up, left, right) in radians
+	
+	get_parent().add_child(dismantle)
 	
 func update_animation_parameters():
 	var direction := Input.get_axis("move_left", "move_right")

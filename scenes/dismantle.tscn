@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://ovq3u3nuiocn"]
+
+[ext_resource type="Script" uid="uid://c3kac6nr42y8m" path="res://scripts/dismantle.gd" id="1_fumn4"]
+[ext_resource type="Texture2D" uid="uid://ds0paem1j5dp1" path="res://assets/sprites/dismantleSukuna/dismantle-1.png" id="2_8ly71"]
+[ext_resource type="Texture2D" uid="uid://cbj21753ya5lt" path="res://assets/sprites/dismantleSukuna/dismantle-2.png" id="3_v7tjx"]
+[ext_resource type="Texture2D" uid="uid://b8thpo2c6573q" path="res://assets/sprites/dismantleSukuna/dismantle-3.png" id="4_df227"]
+[ext_resource type="Texture2D" uid="uid://dtpukocnoc0ha" path="res://assets/sprites/dismantleSukuna/dismantle-4.png" id="5_7i5m0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fumn4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8ly71")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_v7tjx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_df227")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7i5m0")
+}],
+"loop": true,
+"name": &"dismantle",
+"speed": 30.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fnvfa"]
+size = Vector2(12, 14)
+
+[node name="dismantle" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_fumn4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.007, 0.007)
+sprite_frames = SubResource("SpriteFrames_fumn4")
+animation = &"dismantle"
+autoplay = "dismantle"
+frame_progress = 0.90734243
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_fnvfa")

@@ -16,7 +16,7 @@ shape = SubResource("WorldBoundaryShape2D_uwrxv")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(594, 390)
 scale = Vector2(0.29242498, 0.29242498)
-zoom = Vector2(5, 5)
+zoom = Vector2(8, 8)
 
 [node name="Sukuna" parent="." instance=ExtResource("1_uwrxv")]
 position = Vector2(596, 365)
