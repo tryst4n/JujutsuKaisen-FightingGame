@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 
 const SPEED = 150.0
+var ACCELERATION := 300
 const JUMP_VELOCITY = -400.0
 @onready var sprite = $Sprite2D
 @onready var anim_tree : AnimationTree =  $AnimationTree
@@ -28,7 +29,7 @@ func _physics_process(delta: float) -> void:
 	
 	#horizontal movement
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = move_toward(velocity.x, direction * SPEED, ACCELERATION * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		
@@ -47,6 +48,14 @@ func shootDismantle():
 	#computes a vector between player and the mouse and convert it to an angle in radians
 	var direction = (mouse_pos - global_position).angle()
 	var spawn_offset = Vector2(spawn_distance, 0).rotated(direction) # spawn_offset rotates the spawn_distance to match the direction(mouse position)
+	
+	#Flip sukuna to the cursor's side
+	# convert radians to degrees
+	var angle_deg = rad_to_deg(direction)
+	if angle_deg > 90 or angle_deg < -90:
+		sprite.flip_h = true
+	else:
+		sprite.flip_h = false
 	
 	dismantle.dir=direction # the projectile's movement direction in radians
 	dismantle.pos=sukuna.global_position + spawn_offset# starting position of projectile + the offset
