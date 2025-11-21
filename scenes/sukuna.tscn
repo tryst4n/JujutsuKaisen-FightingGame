@@ -1,9 +1,9 @@
-[gd_scene load_steps=67 format=3 uid="uid://dbyyv1pqf8ybn"]
+[gd_scene load_steps=78 format=3 uid="uid://dbyyv1pqf8ybn"]
 
 [ext_resource type="Script" uid="uid://cdtngaf32opdk" path="res://scripts/sukuna.gd" id="1_cl4kx"]
 [ext_resource type="Texture2D" uid="uid://b7uxqpfwhnh88" path="res://assets/sprites/idleSukuna/1.png" id="1_dqkch"]
 [ext_resource type="Texture2D" uid="uid://dx58otnxy60cb" path="res://assets/sprites/idleSukuna/2.png" id="2_qlg0r"]
-[ext_resource type="Texture2D" uid="uid://bdlk63yrmyoev" path="res://assets/sprites/spearAttackSukuna/spearAttack-2.png" id="2_w016k"]
+[ext_resource type="Texture2D" uid="uid://bvteqgywscwxe" path="res://assets/sprites/spearAttackSukuna/SpearAttack-2.png" id="2_w016k"]
 [ext_resource type="Texture2D" uid="uid://bdfqj1kqghdmw" path="res://assets/sprites/idleSukuna/3.png" id="3_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://ce6vfdvjsjl11" path="res://assets/sprites/idleSukuna/4.png" id="4_fjrip"]
 [ext_resource type="Texture2D" uid="uid://bo7t2av001j14" path="res://assets/sprites/runSukuna/Running-4.png" id="6_1kthw"]
@@ -20,13 +20,20 @@
 [ext_resource type="Texture2D" uid="uid://cxjtcrdeki1cm" path="res://assets/sprites/jumpSukuna/Jump-5.png" id="17_5ybbw"]
 [ext_resource type="Texture2D" uid="uid://chpbfwxol8416" path="res://assets/sprites/jumpSukuna/Jump-6.png" id="18_x1dc4"]
 [ext_resource type="Texture2D" uid="uid://b5a2lmrhsallm" path="res://assets/sprites/jumpSukuna/Jump-7.png" id="19_fgs2s"]
-[ext_resource type="Texture2D" uid="uid://dwfictc0wlk0j" path="res://assets/sprites/spearAttackSukuna/spearAttack-3.png" id="21_aj76c"]
-[ext_resource type="Texture2D" uid="uid://dij2jt03kwmh4" path="res://assets/sprites/spearAttackSukuna/spearAttack-4.png" id="22_wx3ne"]
-[ext_resource type="Texture2D" uid="uid://crnke8n3oamrs" path="res://assets/sprites/spearAttackSukuna/spearAttack-5.png" id="23_rsfvr"]
-[ext_resource type="Texture2D" uid="uid://dnuohvxx2jf7h" path="res://assets/sprites/spearAttackSukuna/spearAttack-6.png" id="24_fcash"]
-[ext_resource type="Texture2D" uid="uid://b10kky3diissl" path="res://assets/sprites/spearAttackSukuna/spearAttack-7.png" id="25_ijcoy"]
-[ext_resource type="Texture2D" uid="uid://by4s30g256so" path="res://assets/sprites/spearAttackSukuna/spearAttack-8.png" id="26_72upv"]
-[ext_resource type="Texture2D" uid="uid://86slcte8bikt" path="res://assets/sprites/spearAttackSukuna/spearAttack-9.png" id="27_w30c6"]
+[ext_resource type="Texture2D" uid="uid://wa16ip8hmlr5" path="res://assets/sprites/spearAttackSukuna/SpearAttack-3.png" id="21_aj76c"]
+[ext_resource type="Texture2D" uid="uid://cr1owgr1f1k7v" path="res://assets/sprites/spearAttackSukuna/SpearAttack-4.png" id="22_wx3ne"]
+[ext_resource type="Texture2D" uid="uid://b7doat6yc0fwk" path="res://assets/sprites/spearAttackSukuna/SpearAttack-5.png" id="23_rsfvr"]
+[ext_resource type="Texture2D" uid="uid://01a1drwx1cgw" path="res://assets/sprites/spearAttackSukuna/SpearAttack-6.png" id="24_fcash"]
+[ext_resource type="Texture2D" uid="uid://leiap7h4rwnh" path="res://assets/sprites/spearAttackSukuna/SpearAttack-7.png" id="25_ijcoy"]
+[ext_resource type="Texture2D" uid="uid://clmfkxdvn6c4h" path="res://assets/sprites/spearAttackSukuna/SpearAttack-8.png" id="26_72upv"]
+[ext_resource type="Texture2D" uid="uid://6h87h50d2fpk" path="res://assets/sprites/spearAttackSukuna/SpearAttack-10.png" id="26_fcash"]
+[ext_resource type="Texture2D" uid="uid://by38o71dmydrn" path="res://assets/sprites/spearAttackSukuna/SpearAttack-9.png" id="27_w30c6"]
+[ext_resource type="Texture2D" uid="uid://dppjs1ji1kda2" path="res://assets/sprites/spearAttackSukuna/SpearAttack-11.png" id="28_72upv"]
+[ext_resource type="Texture2D" uid="uid://cq0s4vp7wt6g4" path="res://assets/sprites/spearAttackSukuna/SpearAttack-12.png" id="29_w30c6"]
+[ext_resource type="Texture2D" uid="uid://cto00h4idxhte" path="res://assets/sprites/idleWeaponsSukuna/IdleWeapons-1.png" id="31_w30c6"]
+[ext_resource type="Texture2D" uid="uid://dwgcldvyv0qc1" path="res://assets/sprites/idleWeaponsSukuna/IdleWeapons-2.png" id="32_5h0rv"]
+[ext_resource type="Texture2D" uid="uid://bypva57huij7n" path="res://assets/sprites/idleWeaponsSukuna/IdleWeapons-3.png" id="33_ddhfh"]
+[ext_resource type="Texture2D" uid="uid://bra4j3vfp83nl" path="res://assets/sprites/idleWeaponsSukuna/IdleWeapons-4.png" id="34_r38fs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cl4kx"]
 size = Vector2(17, 20)
@@ -102,6 +109,23 @@ tracks/0/keys = {
 "values": [ExtResource("1_dqkch"), ExtResource("2_qlg0r"), ExtResource("3_tuyoq"), ExtResource("4_fjrip")]
 }
 
+[sub_resource type="Animation" id="Animation_sj8po"]
+resource_name = "idleWeapons"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D_SpearAttack:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("31_w30c6"), ExtResource("32_5h0rv"), ExtResource("33_ddhfh"), ExtResource("34_r38fs")]
+}
+
 [sub_resource type="Animation" id="Animation_7sa81"]
 resource_name = "jump"
 length = 0.6
@@ -135,6 +159,45 @@ tracks/0/keys = {
 "values": [ExtResource("6_1kthw"), ExtResource("7_n6hbq"), ExtResource("8_6mmyb"), ExtResource("9_3qfdi"), ExtResource("10_j4c4v"), ExtResource("8_6mmyb")]
 }
 
+[sub_resource type="Animation" id="Animation_5h0rv"]
+resource_name = "spearAttack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D_SpearAttack:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_w016k"), ExtResource("21_aj76c"), ExtResource("22_wx3ne"), ExtResource("23_rsfvr"), ExtResource("24_fcash"), ExtResource("25_ijcoy"), ExtResource("26_72upv"), ExtResource("27_w30c6"), ExtResource("26_fcash"), ExtResource("28_72upv"), ExtResource("29_w30c6")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D_SpearAttack/Spear/SpearCollisionShape:shape")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_a7x0u"), SubResource("RectangleShape2D_a7x0u"), SubResource("RectangleShape2D_a7x0u"), SubResource("RectangleShape2D_a7x0u"), SubResource("RectangleShape2D_a7x0u"), SubResource("RectangleShape2D_a7x0u"), SubResource("RectangleShape2D_a7x0u"), SubResource("RectangleShape2D_a7x0u"), SubResource("RectangleShape2D_a7x0u")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D_SpearAttack/Spear/SpearCollisionShape:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, true, false, false, false, true, true, true, true, true]
+}
+
 [sub_resource type="Animation" id="Animation_nwqgb"]
 resource_name = "startrun"
 length = 0.3
@@ -151,50 +214,11 @@ tracks/0/keys = {
 "values": [ExtResource("12_j4c4v"), ExtResource("13_p5111"), ExtResource("13_p5111")]
 }
 
-[sub_resource type="Animation" id="Animation_5h0rv"]
-resource_name = "spearAttack"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D_SpearAttack:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("2_w016k"), ExtResource("21_aj76c"), ExtResource("22_wx3ne"), ExtResource("23_rsfvr"), ExtResource("24_fcash"), ExtResource("25_ijcoy"), ExtResource("26_72upv"), ExtResource("27_w30c6"), ExtResource("21_aj76c")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D_SpearAttack/Spear/SpearCollisionShape:shape")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [SubResource("RectangleShape2D_a7x0u"), SubResource("RectangleShape2D_a7x0u"), SubResource("RectangleShape2D_a7x0u"), SubResource("RectangleShape2D_a7x0u"), SubResource("RectangleShape2D_a7x0u"), SubResource("RectangleShape2D_a7x0u"), SubResource("RectangleShape2D_a7x0u")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D_SpearAttack/Spear/SpearCollisionShape:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [true, true, true, false, false, false, true, true, true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nwqgb"]
 _data = {
 &"RESET": SubResource("Animation_j4c4v"),
 &"idle": SubResource("Animation_3qfdi"),
+&"idleWeapons": SubResource("Animation_sj8po"),
 &"jump": SubResource("Animation_7sa81"),
 &"run": SubResource("Animation_p5111"),
 &"spearAttack": SubResource("Animation_5h0rv"),
@@ -209,9 +233,18 @@ blend_point_0/node = SubResource("AnimationNodeAnimation_w016k")
 blend_point_0/pos = 0.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1kthw"]
-animation = &"idle"
+animation = &"idleWeapons"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n6hbq"]
+animation = &"idleWeapons"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w30c6"]
+animation = &"idleWeapons"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5h0rv"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r38fs"]
 animation = &"idle"
 
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_fgs2s"]
@@ -219,6 +252,12 @@ blend_point_0/node = SubResource("AnimationNodeAnimation_1kthw")
 blend_point_0/pos = -1.0
 blend_point_1/node = SubResource("AnimationNodeAnimation_n6hbq")
 blend_point_1/pos = 1.0
+blend_point_2/node = SubResource("AnimationNodeAnimation_w30c6")
+blend_point_2/pos = 0.0
+blend_point_3/node = SubResource("AnimationNodeAnimation_5h0rv")
+blend_point_3/pos = 0.0
+blend_point_4/node = SubResource("AnimationNodeAnimation_r38fs")
+blend_point_4/pos = 0.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3qfdi"]
 animation = &"jump"
@@ -359,7 +398,7 @@ parameters/conditions/is_jumping = false
 parameters/conditions/is_running = false
 parameters/conditions/start_run = false
 parameters/attack/blend_position = 0.0
-parameters/idle/blend_position = 0.0
+parameters/idle/blend_position = -0.0032467246
 parameters/jump/blend_position = 0.0
 parameters/run/blend_position = 0.0
 parameters/startrun/blend_position = 0.0
@@ -368,7 +407,7 @@ parameters/startrun/blend_position = 0.0
 position = Vector2(0, -4)
 
 [node name="Sprite2D_SpearAttack" type="Sprite2D" parent="."]
-position = Vector2(2, -12)
+position = Vector2(1.4, -12)
 scale = Vector2(0.02376867, 0.02376867)
 texture = ExtResource("2_w016k")
 

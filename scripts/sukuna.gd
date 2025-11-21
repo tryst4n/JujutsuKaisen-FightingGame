@@ -10,7 +10,6 @@ const JUMP_VELOCITY = -400.0
 @onready var sukuna = $"."
 var dismantle_scene_path=preload("res://scenes/dismantle.tscn")
 var is_attacking = false
-var is_jumping = !(velocity.y == 0) #if velocity in y != 0, character is jumping
 
 func _ready():
 	anim_tree.active = true
@@ -71,7 +70,7 @@ func attack():
 		sprite.flip_h = false
 		spriteForWeapons.flip_h = false
 	
-	await get_tree().create_timer(0.8).timeout
+	await get_tree().create_timer(1).timeout #1s being the time of the attack animation
 	is_attacking = false
 	
 func shootDismantle():
@@ -102,6 +101,7 @@ func shootDismantle():
 	
 func update_animation_parameters():
 	var direction := Input.get_axis("move_left", "move_right")
+	var is_jumping =  !(velocity.y == 0) #if velocity in y != 0, character is jumping
 	#flip the sprite depending on facing direction
 	if direction > 0 : 
 		sprite.flip_h = false
@@ -109,16 +109,6 @@ func update_animation_parameters():
 	elif direction < 0 :
 		sprite.flip_h = true
 		spriteForWeapons.flip_h = true
-	#ATTACKING
-	if is_attacking:
-		sprite.visible = false
-		spriteForWeapons.visible = true
-		anim_tree["parameters/conditions/idle"] = false
-		anim_tree["parameters/conditions/start_run"] = false
-		anim_tree["parameters/conditions/is_running"] = false
-		anim_tree["parameters/conditions/is_jumping"] = false
-		anim_tree["parameters/conditions/attack"] = true
-		return
 	#HANDLE JUMPING
 	if is_jumping :
 		sprite.visible = true
@@ -131,10 +121,21 @@ func update_animation_parameters():
 		return
 	anim_tree["parameters/conditions/is_jumping"] = false
 	
+	#ATTACKING
+	if is_attacking:
+		sprite.visible = false
+		spriteForWeapons.visible = true
+		anim_tree["parameters/conditions/idle"] = false
+		anim_tree["parameters/conditions/start_run"] = false
+		anim_tree["parameters/conditions/is_running"] = false
+		anim_tree["parameters/conditions/is_jumping"] = false
+		anim_tree["parameters/conditions/attack"] = true
+		return
+	
 	#HANDLE IDLE / RUN
 	if direction == 0 :
-		sprite.visible = true
-		spriteForWeapons.visible = false
+		sprite.visible = false
+		spriteForWeapons.visible = true	
 		anim_tree["parameters/conditions/idle"] = true
 		anim_tree["parameters/conditions/start_run"] = false
 		anim_tree["parameters/conditions/is_running"] = false
