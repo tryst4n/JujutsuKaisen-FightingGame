@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://wa16ip8hmlr5"
-path="res://.godot/imported/SpearAttack-3.png-752425f9a99fe2a0bc72c2758dab2c8c.ctex"
+path="res://.godot/imported/spearAttack-3.png-4c372e59d38c92c0fe1a7dcb6598cf67.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/spearAttackSukuna/SpearAttack-3.png"
-dest_files=["res://.godot/imported/SpearAttack-3.png-752425f9a99fe2a0bc72c2758dab2c8c.ctex"]
+source_file="res://assets/sprites/spearAttackSukuna/spearAttack-3.png"
+dest_files=["res://.godot/imported/spearAttack-3.png-4c372e59d38c92c0fe1a7dcb6598cf67.ctex"]
 
 [params]
 

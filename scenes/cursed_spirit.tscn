@@ -1,0 +1,145 @@
+[gd_scene load_steps=27 format=3 uid="uid://byr3fgnxebqkc"]
+
+[ext_resource type="Script" uid="uid://bpaugurlipyse" path="res://scripts/cursed_spirit.gd" id="1_2pmxj"]
+[ext_resource type="Texture2D" uid="uid://cp07monllmkv3" path="res://assets/sprites/cursedSpirits/tongueSpirit/walk/WalkTongue-1.png" id="2_hc42a"]
+[ext_resource type="Texture2D" uid="uid://ca7qby5xfjmhm" path="res://assets/sprites/cursedSpirits/tongueSpirit/walk/WalkTongue-2.png" id="3_p1ggx"]
+[ext_resource type="Texture2D" uid="uid://ilhppepcnyt5" path="res://assets/sprites/cursedSpirits/tongueSpirit/walk/WalkTongue-3.png" id="4_nyyue"]
+[ext_resource type="Texture2D" uid="uid://sk1m3gk2ihfk" path="res://assets/sprites/cursedSpirits/tongueSpirit/walk/WalkTongue-4.png" id="5_5o780"]
+[ext_resource type="Texture2D" uid="uid://d0ck4tb7qk36a" path="res://assets/sprites/cursedSpirits/tongueSpirit/walk/WalkTongue-5.png" id="6_s7b7k"]
+[ext_resource type="Texture2D" uid="uid://disulmcmb0epv" path="res://assets/sprites/cursedSpirits/tongueSpirit/walk/WalkTongue-6.png" id="7_l3epj"]
+[ext_resource type="Texture2D" uid="uid://fgc6d2w6mo4n" path="res://assets/sprites/cursedSpirits/tongueSpirit/walk/WalkTongue-7.png" id="8_xva30"]
+[ext_resource type="Texture2D" uid="uid://cnjp8ktnwrs8j" path="res://assets/sprites/cursedSpirits/tongueSpirit/idle/IdleTongue-1.png" id="9_s7b7k"]
+[ext_resource type="Texture2D" uid="uid://cv3c8t0k1n0t5" path="res://assets/sprites/cursedSpirits/tongueSpirit/idle/IdleTongue-2.png" id="10_l3epj"]
+[ext_resource type="Texture2D" uid="uid://n20416eniolt" path="res://assets/sprites/cursedSpirits/tongueSpirit/idle/IdleTongue-3.png" id="11_xva30"]
+[ext_resource type="Texture2D" uid="uid://2s5vjary8rqq" path="res://assets/sprites/cursedSpirits/tongueSpirit/idle/IdleTongue-4.png" id="12_4luqk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_naalq"]
+size = Vector2(25, 34.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2pmxj"]
+size = Vector2(13.145335, 10.129357)
+
+[sub_resource type="Animation" id="Animation_4luqk"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_hc42a"), ExtResource("3_p1ggx"), ExtResource("4_nyyue"), ExtResource("5_5o780"), ExtResource("6_s7b7k"), ExtResource("7_l3epj"), ExtResource("8_xva30")]
+}
+
+[sub_resource type="Animation" id="Animation_x2tnx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_hc42a")]
+}
+
+[sub_resource type="Animation" id="Animation_6vxm2"]
+resource_name = "idle"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("9_s7b7k"), ExtResource("10_l3epj"), ExtResource("11_xva30"), ExtResource("12_4luqk")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6vxm2"]
+_data = {
+&"RESET": SubResource("Animation_x2tnx"),
+&"idle": SubResource("Animation_6vxm2"),
+&"walk": SubResource("Animation_4luqk")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s7b7k"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_s7b7k"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_s7b7k")
+blend_point_0/pos = 0.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l3epj"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_l3epj"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_l3epj")
+blend_point_0/pos = 0.0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xva30"]
+advance_mode = 2
+advance_condition = &"is_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4luqk"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s7b7k"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_x2tnx"]
+states/Start/position = Vector2(186, 100)
+states/idle/node = SubResource("AnimationNodeBlendSpace1D_s7b7k")
+states/idle/position = Vector2(400, 100)
+states/walk/node = SubResource("AnimationNodeBlendSpace1D_l3epj")
+states/walk/position = Vector2(680, 100)
+transitions = ["idle", "walk", SubResource("AnimationNodeStateMachineTransition_xva30"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_4luqk"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_s7b7k")]
+
+[node name="cursedSpirit" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_2pmxj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(6, -11)
+scale = Vector2(0.6392906, 0.6392906)
+texture = ExtResource("2_hc42a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3.5, -7.75)
+shape = SubResource("RectangleShape2D_naalq")
+
+[node name="AttackRange (Area2D)" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange (Area2D)"]
+position = Vector2(8.776723, -7.707513)
+scale = Vector2(1.5554228, 0.92947906)
+shape = SubResource("RectangleShape2D_2pmxj")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6vxm2")
+}
+autoplay = "idle"
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_x2tnx")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/idle = false
+parameters/conditions/is_walking = false
+parameters/idle/blend_position = 0.0
+parameters/walk/blend_position = 0.0

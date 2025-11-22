@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 const SPEED = 150.0
-var ACCELERATION := 300
+var ACCELERATION := 500
 const JUMP_VELOCITY = -400.0
 @onready var sprite = $Sprite2D
 @onready var spriteForWeapons = $Sprite2D_SpearAttack
@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, ACCELERATION * delta)
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, ACCELERATION * delta)
 	# PREVENT MOVEMENT WHILE ATTACKING
 	if is_attacking:
 		velocity.x = 0 # freeze left/right
@@ -55,7 +55,7 @@ func attack():
 	sprite.visible = false
 	spriteForWeapons.visible = true
 	
-	#get mosue position
+	#get mouse position
 	var mouse_pos = get_global_mouse_position()
 	#computes a vector between player and the mouse and convert it to an angle in radians
 	var direction = (mouse_pos - global_position).angle()

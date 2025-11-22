@@ -1,9 +1,9 @@
-[gd_scene load_steps=78 format=3 uid="uid://dbyyv1pqf8ybn"]
+[gd_scene load_steps=93 format=3 uid="uid://dbyyv1pqf8ybn"]
 
 [ext_resource type="Script" uid="uid://cdtngaf32opdk" path="res://scripts/sukuna.gd" id="1_cl4kx"]
 [ext_resource type="Texture2D" uid="uid://b7uxqpfwhnh88" path="res://assets/sprites/idleSukuna/1.png" id="1_dqkch"]
 [ext_resource type="Texture2D" uid="uid://dx58otnxy60cb" path="res://assets/sprites/idleSukuna/2.png" id="2_qlg0r"]
-[ext_resource type="Texture2D" uid="uid://bvteqgywscwxe" path="res://assets/sprites/spearAttackSukuna/SpearAttack-2.png" id="2_w016k"]
+[ext_resource type="Texture2D" uid="uid://bvteqgywscwxe" path="res://assets/sprites/spearAttackSukuna/spearAttack-2.png" id="2_w016k"]
 [ext_resource type="Texture2D" uid="uid://bdfqj1kqghdmw" path="res://assets/sprites/idleSukuna/3.png" id="3_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://ce6vfdvjsjl11" path="res://assets/sprites/idleSukuna/4.png" id="4_fjrip"]
 [ext_resource type="Texture2D" uid="uid://bo7t2av001j14" path="res://assets/sprites/runSukuna/Running-4.png" id="6_1kthw"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://dvuamaw73xfpg" path="res://assets/sprites/runSukuna/Running-6.png" id="8_6mmyb"]
 [ext_resource type="Texture2D" uid="uid://bu0qxrhxm5jq3" path="res://assets/sprites/runSukuna/Running-7.png" id="9_3qfdi"]
 [ext_resource type="Texture2D" uid="uid://de15ylk8cheau" path="res://assets/sprites/runSukuna/Running-8.png" id="10_j4c4v"]
-[ext_resource type="Texture2D" uid="uid://cb7l8vc7grfn7" path="res://assets/sprites/runSukuna/Running-2.png" id="12_j4c4v"]
 [ext_resource type="Texture2D" uid="uid://bc5gewhqsjoop" path="res://assets/sprites/jumpSukuna/Jump-1.png" id="13_dci4k"]
 [ext_resource type="Texture2D" uid="uid://c65hrknhqcpqs" path="res://assets/sprites/runSukuna/Running-3.png" id="13_p5111"]
 [ext_resource type="Texture2D" uid="uid://cq1ac3als5c7e" path="res://assets/sprites/jumpSukuna/Jump-2.png" id="14_a7x0u"]
@@ -20,20 +19,34 @@
 [ext_resource type="Texture2D" uid="uid://cxjtcrdeki1cm" path="res://assets/sprites/jumpSukuna/Jump-5.png" id="17_5ybbw"]
 [ext_resource type="Texture2D" uid="uid://chpbfwxol8416" path="res://assets/sprites/jumpSukuna/Jump-6.png" id="18_x1dc4"]
 [ext_resource type="Texture2D" uid="uid://b5a2lmrhsallm" path="res://assets/sprites/jumpSukuna/Jump-7.png" id="19_fgs2s"]
-[ext_resource type="Texture2D" uid="uid://wa16ip8hmlr5" path="res://assets/sprites/spearAttackSukuna/SpearAttack-3.png" id="21_aj76c"]
-[ext_resource type="Texture2D" uid="uid://cr1owgr1f1k7v" path="res://assets/sprites/spearAttackSukuna/SpearAttack-4.png" id="22_wx3ne"]
-[ext_resource type="Texture2D" uid="uid://b7doat6yc0fwk" path="res://assets/sprites/spearAttackSukuna/SpearAttack-5.png" id="23_rsfvr"]
-[ext_resource type="Texture2D" uid="uid://01a1drwx1cgw" path="res://assets/sprites/spearAttackSukuna/SpearAttack-6.png" id="24_fcash"]
-[ext_resource type="Texture2D" uid="uid://leiap7h4rwnh" path="res://assets/sprites/spearAttackSukuna/SpearAttack-7.png" id="25_ijcoy"]
-[ext_resource type="Texture2D" uid="uid://clmfkxdvn6c4h" path="res://assets/sprites/spearAttackSukuna/SpearAttack-8.png" id="26_72upv"]
-[ext_resource type="Texture2D" uid="uid://6h87h50d2fpk" path="res://assets/sprites/spearAttackSukuna/SpearAttack-10.png" id="26_fcash"]
-[ext_resource type="Texture2D" uid="uid://by38o71dmydrn" path="res://assets/sprites/spearAttackSukuna/SpearAttack-9.png" id="27_w30c6"]
+[ext_resource type="Texture2D" uid="uid://wa16ip8hmlr5" path="res://assets/sprites/spearAttackSukuna/spearAttack-3.png" id="21_aj76c"]
+[ext_resource type="Texture2D" uid="uid://cr1owgr1f1k7v" path="res://assets/sprites/spearAttackSukuna/spearAttack-4.png" id="22_wx3ne"]
+[ext_resource type="Texture2D" uid="uid://b7doat6yc0fwk" path="res://assets/sprites/spearAttackSukuna/spearAttack-5.png" id="23_rsfvr"]
+[ext_resource type="Texture2D" uid="uid://01a1drwx1cgw" path="res://assets/sprites/spearAttackSukuna/spearAttack-6.png" id="24_fcash"]
+[ext_resource type="Texture2D" uid="uid://leiap7h4rwnh" path="res://assets/sprites/spearAttackSukuna/spearAttack-7.png" id="25_ijcoy"]
+[ext_resource type="Texture2D" uid="uid://clmfkxdvn6c4h" path="res://assets/sprites/spearAttackSukuna/spearAttack-8.png" id="26_72upv"]
+[ext_resource type="Texture2D" uid="uid://6h87h50d2fpk" path="res://assets/sprites/spearAttackSukuna/spearAttack-10.png" id="26_fcash"]
+[ext_resource type="Texture2D" uid="uid://by38o71dmydrn" path="res://assets/sprites/spearAttackSukuna/spearAttack-9.png" id="27_w30c6"]
 [ext_resource type="Texture2D" uid="uid://dppjs1ji1kda2" path="res://assets/sprites/spearAttackSukuna/SpearAttack-11.png" id="28_72upv"]
 [ext_resource type="Texture2D" uid="uid://cq0s4vp7wt6g4" path="res://assets/sprites/spearAttackSukuna/SpearAttack-12.png" id="29_w30c6"]
-[ext_resource type="Texture2D" uid="uid://cto00h4idxhte" path="res://assets/sprites/idleWeaponsSukuna/IdleWeapons-1.png" id="31_w30c6"]
-[ext_resource type="Texture2D" uid="uid://dwgcldvyv0qc1" path="res://assets/sprites/idleWeaponsSukuna/IdleWeapons-2.png" id="32_5h0rv"]
-[ext_resource type="Texture2D" uid="uid://bypva57huij7n" path="res://assets/sprites/idleWeaponsSukuna/IdleWeapons-3.png" id="33_ddhfh"]
-[ext_resource type="Texture2D" uid="uid://bra4j3vfp83nl" path="res://assets/sprites/idleWeaponsSukuna/IdleWeapons-4.png" id="34_r38fs"]
+[ext_resource type="Texture2D" uid="uid://cto00h4idxhte" path="res://assets/sprites/idleWeaponsSukuna/idleWeapons-1.png" id="31_w30c6"]
+[ext_resource type="Texture2D" uid="uid://dwgcldvyv0qc1" path="res://assets/sprites/idleWeaponsSukuna/idleWeapons-2.png" id="32_5h0rv"]
+[ext_resource type="Texture2D" uid="uid://bypva57huij7n" path="res://assets/sprites/idleWeaponsSukuna/idleWeapons-3.png" id="33_ddhfh"]
+[ext_resource type="Texture2D" uid="uid://dhm4t0oldavlb" path="res://assets/sprites/runWeaponsSukuna/Runnin_With_Weapons-1.png" id="33_n3611"]
+[ext_resource type="Texture2D" uid="uid://cn0ig4s6jiog0" path="res://assets/sprites/runWeaponsSukuna/Runnin_With_Weapons-2.png" id="34_bxt4n"]
+[ext_resource type="Texture2D" uid="uid://bra4j3vfp83nl" path="res://assets/sprites/idleWeaponsSukuna/idleWeapons-4.png" id="34_r38fs"]
+[ext_resource type="Texture2D" uid="uid://tysogilljmb3" path="res://assets/sprites/runWeaponsSukuna/Runnin_With_Weapons-3.png" id="36_puorx"]
+[ext_resource type="Texture2D" uid="uid://dggfoosl4ge8d" path="res://assets/sprites/runWeaponsSukuna/Runnin_With_Weapons-4.png" id="37_n22ev"]
+[ext_resource type="Texture2D" uid="uid://dr0gu1wwnn3f8" path="res://assets/sprites/runWeaponsSukuna/Runnin_With_Weapons-5.png" id="38_gfv5i"]
+[ext_resource type="Texture2D" uid="uid://h0w3dy2di32g" path="res://assets/sprites/runWeaponsSukuna/Runnin_With_Weapons-6.png" id="39_mk835"]
+[ext_resource type="Texture2D" uid="uid://v7hpv84sjkne" path="res://assets/sprites/runWeaponsSukuna/Runnin_With_Weapons-7.png" id="40_xax2j"]
+[ext_resource type="Texture2D" uid="uid://butv33a0r7ptt" path="res://assets/sprites/jumpWeaponsSukuna/JumpingWeapons-1.png" id="41_kv1gc"]
+[ext_resource type="Texture2D" uid="uid://dionvu5gwe8vx" path="res://assets/sprites/jumpWeaponsSukuna/JumpingWeapons-2.png" id="42_t3m6i"]
+[ext_resource type="Texture2D" uid="uid://dk87fyn40va2y" path="res://assets/sprites/jumpWeaponsSukuna/JumpingWeapons-3.png" id="43_aueim"]
+[ext_resource type="Texture2D" uid="uid://8eop3tgn8glg" path="res://assets/sprites/jumpWeaponsSukuna/JumpingWeapons-4.png" id="44_munxt"]
+[ext_resource type="Texture2D" uid="uid://buxsl5jffsel3" path="res://assets/sprites/jumpWeaponsSukuna/JumpingWeapons-5.png" id="45_iwbx1"]
+[ext_resource type="Texture2D" uid="uid://boh5csykxifgf" path="res://assets/sprites/jumpWeaponsSukuna/JumpingWeapons-6.png" id="46_qbgv7"]
+[ext_resource type="Texture2D" uid="uid://bi68rbmdxb4pu" path="res://assets/sprites/jumpWeaponsSukuna/JumpingWeapons-7.png" id="47_eeclu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cl4kx"]
 size = Vector2(17, 20)
@@ -159,6 +172,23 @@ tracks/0/keys = {
 "values": [ExtResource("6_1kthw"), ExtResource("7_n6hbq"), ExtResource("8_6mmyb"), ExtResource("9_3qfdi"), ExtResource("10_j4c4v"), ExtResource("8_6mmyb")]
 }
 
+[sub_resource type="Animation" id="Animation_kv1gc"]
+resource_name = "runWeapons"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("36_puorx"), ExtResource("37_n22ev"), ExtResource("38_gfv5i"), ExtResource("39_mk835"), ExtResource("40_xax2j"), ExtResource("38_gfv5i")]
+}
+
 [sub_resource type="Animation" id="Animation_5h0rv"]
 resource_name = "spearAttack"
 tracks/0/type = "value"
@@ -200,7 +230,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_nwqgb"]
 resource_name = "startrun"
-length = 0.3
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -211,7 +241,23 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [ExtResource("12_j4c4v"), ExtResource("13_p5111"), ExtResource("13_p5111")]
+"values": [ExtResource("33_n3611"), ExtResource("34_bxt4n"), ExtResource("13_p5111")]
+}
+
+[sub_resource type="Animation" id="Animation_m5exg"]
+resource_name = "jumpWeapons"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("41_kv1gc"), ExtResource("42_t3m6i"), ExtResource("43_aueim"), ExtResource("44_munxt"), ExtResource("45_iwbx1"), ExtResource("46_qbgv7"), ExtResource("47_eeclu")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nwqgb"]
@@ -220,7 +266,9 @@ _data = {
 &"idle": SubResource("Animation_3qfdi"),
 &"idleWeapons": SubResource("Animation_sj8po"),
 &"jump": SubResource("Animation_7sa81"),
+&"jumpWeapons": SubResource("Animation_m5exg"),
 &"run": SubResource("Animation_p5111"),
+&"runWeapons": SubResource("Animation_kv1gc"),
 &"spearAttack": SubResource("Animation_5h0rv"),
 &"startrun": SubResource("Animation_nwqgb")
 }
@@ -260,7 +308,7 @@ blend_point_4/node = SubResource("AnimationNodeAnimation_r38fs")
 blend_point_4/pos = 0.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3qfdi"]
-animation = &"jump"
+animation = &"jumpWeapons"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dci4k"]
 animation = &"jump"
@@ -272,11 +320,11 @@ blend_point_1/node = SubResource("AnimationNodeAnimation_dci4k")
 blend_point_1/pos = 0.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6mmyb"]
-animation = &"run"
+animation = &"runWeapons"
 
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_w016k"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_6mmyb")
-blend_point_0/pos = -1.0
+blend_point_0/pos = 0.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ab5ah"]
 animation = &"startrun"
@@ -384,7 +432,6 @@ libraries = {
 speed_scale = 0.6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
 position = Vector2(-1, -1)
 scale = Vector2(0.0069011445, 0.0069011445)
@@ -400,7 +447,7 @@ parameters/conditions/start_run = false
 parameters/attack/blend_position = 0.0
 parameters/idle/blend_position = -0.0032467246
 parameters/jump/blend_position = 0.0
-parameters/run/blend_position = 0.0
+parameters/run/blend_position = -1.0
 parameters/startrun/blend_position = 0.0
 
 [node name="Dismantle" type="Node2D" parent="."]
