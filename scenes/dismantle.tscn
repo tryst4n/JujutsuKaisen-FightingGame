@@ -30,6 +30,7 @@ animations = [{
 size = Vector2(12, 14)
 
 [node name="dismantle" type="CharacterBody2D"]
+scale = Vector2(3.035925, 3.035925)
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_fumn4")

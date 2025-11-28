@@ -5,12 +5,14 @@ extends CharacterBody2D
 @export var attack_cooldown := 1.
 @onready var player: Node2D
 @onready var anim_tree : AnimationTree =  $AnimationTree
-
+var health := 2
 var can_attack := true
 
 @onready var sprite := $Sprite2D
 
 func _ready():
+	#put the curse in group enemies
+	add_to_group("enemies")
 	# Find the player automatically
 	player = get_tree().get_root().find_child("Player", true, false) #looks everywhere starting in this scene until it finds Player
 	
@@ -37,7 +39,17 @@ func _physics_process(delta):
 		attempt_attack()
 
 	move_and_slide()
+	
+func take_damage():
+	health -= 1
+	print("Enemy took damage, HP =", health)
 
+	if health <= 0:
+		die()	
+		
+func die():
+	queue_free()
+	
 func move_toward_player(delta):
 	var direction = (player.global_position - global_position).normalized()
 	velocity.x = direction.x * speed

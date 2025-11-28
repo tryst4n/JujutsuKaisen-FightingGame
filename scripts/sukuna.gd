@@ -1,18 +1,22 @@
 extends CharacterBody2D
 
+class_name Sukuna
+
 
 const SPEED = 150.0
 var ACCELERATION := 500
 const JUMP_VELOCITY = -400.0
 @onready var sprite = $Sprite2D
-@onready var spriteForWeapons = $Sprite2D_SpearAttack
 @onready var anim_tree : AnimationTree =  $AnimationTree
 @onready var sukuna = $"."
+@onready var CollisionShape = $CollisionShape2D
+@onready var SpearCollisionShape = $Spear/SpearCollisionShape2D
 var dismantle_scene_path=preload("res://scenes/dismantle.tscn")
 var is_attacking = false
 
 func _ready():
 	anim_tree.active = true
+	SpearCollisionShape.disabled = true
 
 func _process(_delta):
 	update_animation_parameters()
@@ -52,8 +56,6 @@ func _physics_process(delta: float) -> void:
 	
 func attack():
 	is_attacking = true
-	sprite.visible = false
-	spriteForWeapons.visible = true
 	
 	#get mouse position
 	var mouse_pos = get_global_mouse_position()
@@ -64,11 +66,14 @@ func attack():
 	# convert radians to degrees
 	var angle_deg = rad_to_deg(direction)
 	if angle_deg > 90 or angle_deg < -90:
-		sprite.flip_h = true
-		spriteForWeapons.flip_h = true
+		update_facing_direction("left");
 	else:
-		sprite.flip_h = false
-		spriteForWeapons.flip_h = false
+		update_facing_direction("right");
+		
+	await get_tree().create_timer(0.3).timeout 
+	SpearCollisionShape.disabled = false
+	await get_tree().create_timer(0.3).timeout 
+	SpearCollisionShape.disabled = true
 	
 	await get_tree().create_timer(1).timeout #1s being the time of the attack animation
 	is_attacking = false
@@ -87,32 +92,37 @@ func shootDismantle():
 	# convert radians to degrees
 	var angle_deg = rad_to_deg(direction)
 	if angle_deg > 90 or angle_deg < -90:
-		sprite.flip_h = true
-		spriteForWeapons.flip_h = true
+		update_facing_direction("left");
 	else:
-		sprite.flip_h = false
-		spriteForWeapons.flip_h = false
+		update_facing_direction("right");
 	
 	dismantle.dir=direction # the projectile's movement direction in radians
 	dismantle.pos=sukuna.global_position + spawn_offset# starting position of projectile + the offset
 	dismantle.rota=direction # rotation of the projectile so it faces the right direction (up, left, right) in radians
 	
 	get_parent().add_child(dismantle)
+
+func update_facing_direction(facing):
+	if facing == "left" :
+		sprite.flip_h = true
+		CollisionShape.position.x = 1
+		SpearCollisionShape.position.x = -13
+	else :
+		sprite.flip_h = false
+		CollisionShape.position.x = -1
+		SpearCollisionShape.position.x = 13
 	
 func update_animation_parameters():
 	var direction := Input.get_axis("move_left", "move_right")
 	var is_jumping =  !(velocity.y == 0) #if velocity in y != 0, character is jumping
 	#flip the sprite depending on facing direction
 	if direction > 0 : 
-		sprite.flip_h = false
-		spriteForWeapons.flip_h = false
+		update_facing_direction("right")
+		CollisionShape.position.x = -1
 	elif direction < 0 :
-		sprite.flip_h = true
-		spriteForWeapons.flip_h = true
+		update_facing_direction("left")
 	#HANDLE JUMPING
 	if is_jumping :
-		sprite.visible = true
-		spriteForWeapons.visible = false
 		anim_tree["parameters/conditions/idle"] = false
 		anim_tree["parameters/conditions/start_run"] = false
 		anim_tree["parameters/conditions/is_running"] = false
@@ -123,8 +133,6 @@ func update_animation_parameters():
 	
 	#ATTACKING
 	if is_attacking:
-		sprite.visible = false
-		spriteForWeapons.visible = true
 		anim_tree["parameters/conditions/idle"] = false
 		anim_tree["parameters/conditions/start_run"] = false
 		anim_tree["parameters/conditions/is_running"] = false
@@ -134,18 +142,13 @@ func update_animation_parameters():
 	
 	#HANDLE IDLE / RUN
 	if direction == 0 :
-		sprite.visible = false
-		spriteForWeapons.visible = true	
 		anim_tree["parameters/conditions/idle"] = true
 		anim_tree["parameters/conditions/start_run"] = false
 		anim_tree["parameters/conditions/is_running"] = false
 		anim_tree["parameters/conditions/attack"] = false
 	else:
-		sprite.visible = true
-		spriteForWeapons.visible = false
 		anim_tree["parameters/conditions/idle"] = false
 		anim_tree["parameters/conditions/start_run"] = true
 		#when start_run animation will finish, run animation will start as set in the AnimationTree StateMachine
 		anim_tree["parameters/conditions/is_running"] = true
 		anim_tree["parameters/conditions/attack"] = false
-		
