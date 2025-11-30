@@ -25,3 +25,6 @@ collision_mask = 3
 
 [node name="cursedSpirit" parent="." instance=ExtResource("2_yqjtg")]
 position = Vector2(538, 417)
+
+[node name="cursedSpirit2" parent="." instance=ExtResource("2_yqjtg")]
+position = Vector2(660, 417)

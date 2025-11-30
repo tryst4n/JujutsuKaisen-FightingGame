@@ -30,3 +30,8 @@ func _physics_process(delta):
 	# Check distance traveled
 	if global_position.distance_to(start_pos) >= max_distance:
 		queue_free() # delete this node
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.is_in_group("hurtbox"):
+		area.take_dismantle_damage()

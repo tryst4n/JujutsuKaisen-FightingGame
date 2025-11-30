@@ -12,8 +12,8 @@ var CollisionShapeFacingRight = -1
 var CollisionShapeFacingLeft = 1
 var SpearCollisionShapeFacingRight = 13
 var SpearCollisionShapeFacingLeft = -13
-var PunchCollisionShapeFacingRight = 9
-var PunchCollisionShapeFacingLeft = -9
+var PunchCollisionShapeFacingRight = 8
+var PunchCollisionShapeFacingLeft = -8
 @onready var sprite = $Sprite2D
 @onready var anim_tree : AnimationTree =  $AnimationTree
 @onready var sukuna = $"."
@@ -68,22 +68,24 @@ func _physics_process(delta: float) -> void:
 
 func lightAttack():
 	is_light_attacking = true
-	PunchCollisionShape.disabled = false
 	get_mouse_pos_then_flip()
-	await get_tree().create_timer(0.3).timeout 
-	is_light_attacking = false
+	await get_tree().create_timer(0.1).timeout 
+	PunchCollisionShape.disabled = false
+	await get_tree().create_timer(0.1).timeout 
 	PunchCollisionShape.disabled = true
+	await get_tree().create_timer(0.1).timeout 
+	is_light_attacking = false
 func heavyAttack():
 	is_heavy_attacking = true
 	get_mouse_pos_then_flip()
 	#activate hitbox after 0.3s
 	await get_tree().create_timer(0.3).timeout 
 	SpearCollisionShape.disabled = false
-	#disactivate hitbox after another 0.3s
-	await get_tree().create_timer(0.3).timeout 
+	#disactivate hitbox after another 0.1s
+	await get_tree().create_timer(0.1).timeout 
 	SpearCollisionShape.disabled = true
 	
-	await get_tree().create_timer(0.5).timeout #0.5s + 0.3s + 0.3s being the total time of the attack animation
+	await get_tree().create_timer(0.7).timeout #0.7s + 0.1s + 0.3s being the total time of the attack animation
 	is_heavy_attacking = false
 	
 func shootDismantle():
@@ -193,9 +195,9 @@ func update_animation_parameters():
 
 func _on_spear_area_entered(area: Area2D) -> void:
 	if area.is_in_group("hurtbox"):
-		area.take_spear_damage() #gotta pass the position of sukuna for knockback direction
+		area.take_spear_damage(global_position) #pass global position for knockback direction
 
 
 func _on_punch_area_entered(area: Area2D) -> void:
 	if area.is_in_group("hurtbox"):
-		area.take_punch_damage() #gotta pass the position of sukuna for knockback direction
+		area.take_punch_damage(global_position) #pass global position for knockback direction
