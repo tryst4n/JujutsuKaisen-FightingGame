@@ -4,7 +4,7 @@ class_name Sukuna
 
 const SPEED = 150.0
 var ACCELERATION := 500
-const JUMP_VELOCITY = -400.0
+const JUMP_VELOCITY = -300.0
 var dismantle_scene_path=preload("res://scenes/dismantle.tscn")
 var is_heavy_attacking = false
 var is_light_attacking = false
@@ -14,6 +14,13 @@ var SpearCollisionShapeFacingRight = 13
 var SpearCollisionShapeFacingLeft = -13
 var PunchCollisionShapeFacingRight = 8
 var PunchCollisionShapeFacingLeft = -8
+var in_knockback_state = false
+var is_attacking = false
+var damaged = false
+var health = 20
+var dying = false
+@export var receives_knockback : bool = true
+@export var knockback_modifier : float = 0.1
 @onready var sprite = $Sprite2D
 @onready var anim_tree : AnimationTree =  $AnimationTree
 @onready var sukuna = $"."
@@ -66,6 +73,47 @@ func _physics_process(delta: float) -> void:
 		heavyAttack()
 	move_and_slide()
 
+func take_tongue_damage(globalPosEnemy):	
+	print("sukuna got attacked!")
+	damaged = true
+	#damage output
+	var damage = 1
+	#Knockback
+	receive_knockback(globalPosEnemy, damage)
+	health -= damage
+	print("Sukuna took Light damage, HP =", health)
+	
+	#die if health is below 0
+	deathIfBelow0()
+	await get_tree().create_timer(0.2).timeout 
+	damaged = false
+	
+func receive_knockback(damage_source_pos: Vector2, received_damage: int):
+	if receives_knockback:
+		in_knockback_state = true
+
+		var startingPos = global_position
+		var knockback_direction = damage_source_pos.direction_to(global_position)
+		knockback_direction.y = 0
+		knockback_direction = knockback_direction.normalized()
+		
+		var end = startingPos + knockback_direction * (received_damage * 20)  # push distance
+
+		var tween = get_tree().create_tween()
+		tween.tween_property(self, "global_position", end, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+		await tween.finished
+		in_knockback_state = false
+
+func deathIfBelow0():
+	if health <= 0:
+		dying = true
+		var body = CollisionShape.get_parent()
+		# Turn OFF all collision alayers so we can pass through him
+		body.set_collision_layer_value(1, false)
+		await get_tree().create_timer(1.4).timeout 
+		queue_free()
+		
 func lightAttack():
 	is_light_attacking = true
 	get_mouse_pos_then_flip()
@@ -75,6 +123,7 @@ func lightAttack():
 	PunchCollisionShape.disabled = true
 	await get_tree().create_timer(0.1).timeout 
 	is_light_attacking = false
+	
 func heavyAttack():
 	is_heavy_attacking = true
 	get_mouse_pos_then_flip()
@@ -111,6 +160,7 @@ func shootDismantle():
 	dismantle.rota=direction # rotation of the projectile so it faces the right direction (up, left, right) in radians
 	
 	get_parent().add_child(dismantle)
+	
 func get_mouse_pos_then_flip():
 	#get mouse position
 	var mouse_pos = get_global_mouse_position()
@@ -147,6 +197,15 @@ func update_animation_parameters():
 	elif direction < 0 :
 		update_facing_direction("left")
 	#HANDLE JUMPING
+	if damaged :
+		anim_tree["parameters/conditions/damaged"] = true
+		anim_tree["parameters/conditions/idle"] = false
+		anim_tree["parameters/conditions/start_run"] = false
+		anim_tree["parameters/conditions/is_running"] = false
+		anim_tree["parameters/conditions/is_jumping"] = false
+		anim_tree["parameters/conditions/heavy"] = false
+		anim_tree["parameters/conditions/light"] = false
+		return
 	
 	if is_light_attacking :
 		anim_tree["parameters/conditions/idle"] = false
@@ -155,6 +214,7 @@ func update_animation_parameters():
 		anim_tree["parameters/conditions/is_jumping"] = false
 		anim_tree["parameters/conditions/heavy"] = false
 		anim_tree["parameters/conditions/light"] = true
+		anim_tree["parameters/conditions/damaged"] = false
 		return
 	
 	if is_jumping :
@@ -164,8 +224,10 @@ func update_animation_parameters():
 		anim_tree["parameters/conditions/is_jumping"] = true
 		anim_tree["parameters/conditions/heavy"] = false
 		anim_tree["parameters/conditions/light"] = false
+		anim_tree["parameters/conditions/damaged"] = false
 		return
 	anim_tree["parameters/conditions/is_jumping"] = false
+	anim_tree["parameters/conditions/damaged"] = false
 	
 	#ATTACKING
 	if is_heavy_attacking:
@@ -175,6 +237,7 @@ func update_animation_parameters():
 		anim_tree["parameters/conditions/is_jumping"] = false
 		anim_tree["parameters/conditions/heavy"] = true
 		anim_tree["parameters/conditions/light"] = false
+		anim_tree["parameters/conditions/damaged"] = false
 		return
 	
 	#HANDLE IDLE / RUN
@@ -184,6 +247,7 @@ func update_animation_parameters():
 		anim_tree["parameters/conditions/is_running"] = false
 		anim_tree["parameters/conditions/heavy"] = false
 		anim_tree["parameters/conditions/light"] = false
+		anim_tree["parameters/conditions/damaged"] = false
 	else:
 		anim_tree["parameters/conditions/idle"] = false
 		anim_tree["parameters/conditions/start_run"] = true
@@ -191,13 +255,14 @@ func update_animation_parameters():
 		anim_tree["parameters/conditions/is_running"] = true
 		anim_tree["parameters/conditions/heavy"] = false
 		anim_tree["parameters/conditions/light"] = false
+		anim_tree["parameters/conditions/damaged"] = false
 
 
 func _on_spear_area_entered(area: Area2D) -> void:
-	if area.is_in_group("hurtbox"):
+	if area.is_in_group("enemy_hurtbox"):
 		area.take_spear_damage(global_position) #pass global position for knockback direction
 
 
 func _on_punch_area_entered(area: Area2D) -> void:
-	if area.is_in_group("hurtbox"):
+	if area.is_in_group("enemy_hurtbox"):
 		area.take_punch_damage(global_position) #pass global position for knockback direction

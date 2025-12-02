@@ -7,6 +7,7 @@
 distance = -345.0
 
 [node name="game" type="Node2D"]
+scale = Vector2(0.99724394, 1.0030564)
 
 [node name="Ground" type="StaticBody2D" parent="."]
 
@@ -14,17 +15,26 @@ distance = -345.0
 position = Vector2(595, 95)
 shape = SubResource("WorldBoundaryShape2D_uwrxv")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(594, 390)
-scale = Vector2(0.37825137, 24.903776)
-zoom = Vector2(8, 8)
-
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
 position = Vector2(596, 365)
 collision_mask = 3
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(4.6554894, -23.04517)
+scale = Vector2(0.37825137, 24.903776)
+zoom = Vector2(10, 10)
 
 [node name="cursedSpirit" parent="." instance=ExtResource("2_yqjtg")]
 position = Vector2(538, 417)
 
 [node name="cursedSpirit2" parent="." instance=ExtResource("2_yqjtg")]
-position = Vector2(660, 417)
+position = Vector2(791.18054, 328.99445)
+
+[node name="cursedSpirit3" parent="." instance=ExtResource("2_yqjtg")]
+position = Vector2(395.08893, 338.964)
+
+[node name="cursedSpirit4" parent="." instance=ExtResource("2_yqjtg")]
+position = Vector2(480.32382, 350.92743)
+
+[node name="cursedSpirit5" parent="." instance=ExtResource("2_yqjtg")]
+position = Vector2(982.70844, 334.9762)

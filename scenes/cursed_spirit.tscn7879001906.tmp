@@ -45,7 +45,7 @@
 size = Vector2(14, 36)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2pmxj"]
-size = Vector2(14.537293, 29.04853)
+size = Vector2(13.644699, 15.980732)
 
 [sub_resource type="Animation" id="Animation_1ani0"]
 length = 0.001
@@ -294,7 +294,7 @@ shape = SubResource("RectangleShape2D_naalq")
 [node name="Tongue" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tongue"]
-position = Vector2(7.694181, 1.5000005)
+position = Vector2(7, 2.573)
 scale = Vector2(1.5554228, 0.92947906)
 shape = SubResource("RectangleShape2D_2pmxj")
 disabled = true

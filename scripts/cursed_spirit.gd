@@ -1,23 +1,29 @@
 extends CharacterBody2D
 
 @export var speed := 40
-@export var stop_distance := 30   # how close before attacking
-@export var attack_cooldown := 1.
+@export var stop_distance := 20   # how close before attacking
+@export var attack_cooldown := 1
 @export var receives_knockback : bool = true
 @export var knockback_modifier : float = 0.1
 @onready var player: Node2D
 @onready var anim_tree : AnimationTree =  $AnimationTree
 @onready var CollisionShape = $CollisionShape2D
 @onready var HurtBoxCollisionShape = $Hurtbox/HurtBoxCollisionShape2D
+@onready var TongueCollisionShape = $Tongue/CollisionShape2D
 var CollisionShapeFacingRight = -7
 var CollisionShapeFacingLeft = 7
 var HurtBoxCollisionShapeFacingRight = -7.5
 var HurtBoxCollisionShapeFacingLeft = 7.5
+var TongueCollisionShapeFacingRight = 7
+var TongueCollisionShapeFacingLeft = -7
 var health := 12
 var can_attack := true
 var damaged = false
 var dying = false
 var in_knockback_state = false
+var is_attacking = false
+var time_in_attack_range := 0.0
+var player_is_dead = false
 
 @onready var sprite := $Sprite2D
 
@@ -31,8 +37,13 @@ func _process(_delta):
 	update_animation_parameters()
 
 func _physics_process(delta):
-	if player == null:
+	if player == null or player_is_dead:
+		velocity.x = 0
+		is_attacking = false
+		time_in_attack_range = 0.0
 		return
+	
+	var distance_to_player = global_position.distance_to(player.global_position)
 
 	# Apply gravity
 	if not is_on_floor():
@@ -45,12 +56,20 @@ func _physics_process(delta):
 		update_facing_direction("right")
 		
 	#movement
-	if dying: #if its not dying, movea 
+	if dying or  distance_to_player <= stop_distance: #if its not dying, move
 		velocity.x = 0
 	elif in_knockback_state:
 		pass
 	else:
 		move_toward_player(delta)
+	
+	#attack if close enough
+	if distance_to_player <= stop_distance and not dying and not damaged and not in_knockback_state:
+		time_in_attack_range += delta
+		if time_in_attack_range >= 0.1:
+			attempt_attack()
+	else :
+		time_in_attack_range = 0.0
 
 	move_and_slide()
 	
@@ -128,16 +147,24 @@ func attempt_attack():
 
 func attack():
 	print("Enemy attacks!")  # replace this later with animation or damage
+	is_attacking = true
+	await get_tree().create_timer(0.3).timeout
+	TongueCollisionShape.disabled = false
+	await get_tree().create_timer(0.2).timeout
+	TongueCollisionShape.disabled = true
+	is_attacking = false
 
 func update_facing_direction(facing):
 	if facing == "left" :
 		sprite.flip_h = true
 		CollisionShape.position.x = CollisionShapeFacingLeft
 		HurtBoxCollisionShape.position.x = HurtBoxCollisionShapeFacingLeft
+		TongueCollisionShape.position.x = TongueCollisionShapeFacingLeft
 	else :
 		sprite.flip_h = false
 		CollisionShape.position.x = CollisionShapeFacingRight
 		HurtBoxCollisionShape.position.x = HurtBoxCollisionShapeFacingRight
+		TongueCollisionShape.position.x = TongueCollisionShapeFacingRight
 	
 func update_animation_parameters():
 	#if damaged is priority
@@ -146,15 +173,29 @@ func update_animation_parameters():
 		anim_tree["parameters/conditions/damaged"] = false
 		anim_tree["parameters/conditions/idle"] = false
 		anim_tree["parameters/conditions/is_walking"] = false
+		anim_tree["parameters/conditions/is_attacking"] = false
 	elif damaged :
 		anim_tree["parameters/conditions/damaged"] = true
 		anim_tree["parameters/conditions/idle"] = false
 		anim_tree["parameters/conditions/is_walking"] = false
+		anim_tree["parameters/conditions/is_attacking"] = false
+	elif is_attacking:
+		anim_tree["parameters/conditions/is_attacking"] = true
+		anim_tree["parameters/conditions/died"] = false
+		anim_tree["parameters/conditions/damaged"] = false
+		anim_tree["parameters/conditions/idle"] = false
+		anim_tree["parameters/conditions/is_walking"] = false
 	else :
 		anim_tree["parameters/conditions/damaged"] = false
+		anim_tree["parameters/conditions/is_attacking"] = false
 		if velocity.x == 0:
 			anim_tree["parameters/conditions/idle"] = true
 			anim_tree["parameters/conditions/is_walking"] = false
 		else:
 			anim_tree["parameters/conditions/idle"] = false
 			anim_tree["parameters/conditions/is_walking"] = true
+
+
+func _on_tongue_area_entered(area: Area2D) -> void:
+		if area.is_in_group("player_hurtbox"):
+			area.take_tongue_damage(global_position) #pass global position for knockback direction
