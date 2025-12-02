@@ -47,6 +47,22 @@ size = Vector2(14, 36)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2pmxj"]
 size = Vector2(14.537293, 29.04853)
 
+[sub_resource type="Animation" id="Animation_p03qp"]
+resource_name = "Attack"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("28_mko7w"), ExtResource("29_71m5j"), ExtResource("30_544jl"), ExtResource("31_e0jjs"), ExtResource("32_26y8c"), ExtResource("33_1ani0"), ExtResource("34_3eghi"), ExtResource("35_4l0cb"), ExtResource("36_vv2cf"), ExtResource("37_tx73m"), ExtResource("38_tm65x")]
+}
+
 [sub_resource type="Animation" id="Animation_1ani0"]
 length = 0.001
 tracks/0/type = "value"
@@ -126,22 +142,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("3_p1ggx"), ExtResource("4_nyyue"), ExtResource("5_5o780"), ExtResource("6_s7b7k"), ExtResource("7_l3epj"), ExtResource("8_xva30")]
-}
-
-[sub_resource type="Animation" id="Animation_p03qp"]
-resource_name = "Attack"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("28_mko7w"), ExtResource("29_71m5j"), ExtResource("30_544jl"), ExtResource("31_e0jjs"), ExtResource("32_26y8c"), ExtResource("33_1ani0"), ExtResource("34_3eghi"), ExtResource("35_4l0cb"), ExtResource("36_vv2cf"), ExtResource("37_tx73m"), ExtResource("38_tm65x")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6vxm2"]
@@ -280,6 +280,7 @@ size = Vector2(29.483906, 41.49587)
 
 [node name="cursedSpirit" type="CharacterBody2D"]
 collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_2pmxj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -24,6 +24,7 @@ var in_knockback_state = false
 var is_attacking = false
 var time_in_attack_range := 0.0
 var player_is_dead = false
+var is_walking = false
 
 @onready var sprite := $Sprite2D
 
@@ -41,6 +42,7 @@ func _physics_process(delta):
 		velocity.x = 0
 		is_attacking = false
 		time_in_attack_range = 0.0
+		is_walking = false
 		return
 	
 	var distance_to_player = global_position.distance_to(player.global_position)
@@ -56,12 +58,14 @@ func _physics_process(delta):
 		update_facing_direction("right")
 		
 	#movement
-	if dying or  distance_to_player <= stop_distance: #if its not dying, move
+	if dying or distance_to_player <= stop_distance: #if its not dying, move
 		velocity.x = 0
+		is_walking = false
 	elif in_knockback_state:
 		pass
 	else:
 		move_toward_player(delta)
+		is_walking = true
 	
 	#attack if close enough
 	if distance_to_player <= stop_distance and not dying and not damaged and not in_knockback_state:
@@ -188,7 +192,7 @@ func update_animation_parameters():
 	else :
 		anim_tree["parameters/conditions/damaged"] = false
 		anim_tree["parameters/conditions/is_attacking"] = false
-		if velocity.x == 0:
+		if not is_walking:
 			anim_tree["parameters/conditions/idle"] = true
 			anim_tree["parameters/conditions/is_walking"] = false
 		else:

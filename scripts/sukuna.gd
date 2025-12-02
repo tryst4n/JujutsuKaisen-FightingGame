@@ -17,8 +17,10 @@ var PunchCollisionShapeFacingLeft = -8
 var in_knockback_state = false
 var is_attacking = false
 var damaged = false
-var health = 20
+var health = 4
 var dying = false
+var is_dismantling = false
+@onready var cam = get_node("Camera2D")
 @export var receives_knockback : bool = true
 @export var knockback_modifier : float = 0.1
 @onready var sprite = $Sprite2D
@@ -65,7 +67,7 @@ func _physics_process(delta: float) -> void:
 		shootDismantle()
 	
 	#light attack
-	if Input.is_action_just_pressed("lightAttack"):
+	if Input.is_action_just_pressed("lightAttack") and is_on_floor() and !is_light_attacking:
 		lightAttack()
 		
 	#heavy attack
@@ -112,6 +114,15 @@ func deathIfBelow0():
 		# Turn OFF all collision alayers so we can pass through him
 		body.set_collision_layer_value(1, false)
 		await get_tree().create_timer(1.4).timeout 
+		# Save exact world position before reparenting
+		var saved_pos = cam.global_position
+		 # reparent camera to "game"
+		var root = get_parent()  # Player's parent = game
+		cam.get_parent().remove_child(cam)
+		root.add_child(cam)
+		
+		# Restore exact world position (prevents popping or jumping)
+		cam.global_position = saved_pos
 		queue_free()
 		
 func lightAttack():
@@ -138,6 +149,8 @@ func heavyAttack():
 	is_heavy_attacking = false
 	
 func shootDismantle():
+	is_dismantling = true
+	$Camera2D.shake(2,0.3)
 	var dismantle=dismantle_scene_path.instantiate()
 	var spawn_distance = 20  # pixels
 
@@ -160,6 +173,8 @@ func shootDismantle():
 	dismantle.rota=direction # rotation of the projectile so it faces the right direction (up, left, right) in radians
 	
 	get_parent().add_child(dismantle)
+	await get_tree().create_timer(0.4).timeout #wait for animation to finish
+	is_dismantling = false
 	
 func get_mouse_pos_then_flip():
 	#get mouse position
@@ -196,7 +211,18 @@ func update_animation_parameters():
 		CollisionShape.position.x = -1
 	elif direction < 0 :
 		update_facing_direction("left")
-	#HANDLE JUMPING
+		
+	if dying:
+		anim_tree["parameters/conditions/died"] = true
+		anim_tree["parameters/conditions/damaged"] = false
+		anim_tree["parameters/conditions/idle"] = false
+		anim_tree["parameters/conditions/start_run"] = false
+		anim_tree["parameters/conditions/is_running"] = false
+		anim_tree["parameters/conditions/is_jumping"] = false
+		anim_tree["parameters/conditions/heavy"] = false
+		anim_tree["parameters/conditions/light"] = false
+		anim_tree["parameters/conditions/dismantle"] = false
+		return
 	if damaged :
 		anim_tree["parameters/conditions/damaged"] = true
 		anim_tree["parameters/conditions/idle"] = false
@@ -205,8 +231,18 @@ func update_animation_parameters():
 		anim_tree["parameters/conditions/is_jumping"] = false
 		anim_tree["parameters/conditions/heavy"] = false
 		anim_tree["parameters/conditions/light"] = false
+		anim_tree["parameters/conditions/dismantle"] = false
 		return
-	
+	if is_dismantling :
+		anim_tree["parameters/conditions/dismantle"] = true
+		anim_tree["parameters/conditions/damaged"] = false
+		anim_tree["parameters/conditions/idle"] = false
+		anim_tree["parameters/conditions/start_run"] = false
+		anim_tree["parameters/conditions/is_running"] = false
+		anim_tree["parameters/conditions/is_jumping"] = false
+		anim_tree["parameters/conditions/heavy"] = false
+		anim_tree["parameters/conditions/light"] = false
+		return
 	if is_light_attacking :
 		anim_tree["parameters/conditions/idle"] = false
 		anim_tree["parameters/conditions/start_run"] = false
@@ -215,8 +251,9 @@ func update_animation_parameters():
 		anim_tree["parameters/conditions/heavy"] = false
 		anim_tree["parameters/conditions/light"] = true
 		anim_tree["parameters/conditions/damaged"] = false
+		anim_tree["parameters/conditions/dismantle"] = false
 		return
-	
+	#HANDLE JUMPING
 	if is_jumping :
 		anim_tree["parameters/conditions/idle"] = false
 		anim_tree["parameters/conditions/start_run"] = false
@@ -225,9 +262,11 @@ func update_animation_parameters():
 		anim_tree["parameters/conditions/heavy"] = false
 		anim_tree["parameters/conditions/light"] = false
 		anim_tree["parameters/conditions/damaged"] = false
+		anim_tree["parameters/conditions/dismantle"] = false
 		return
 	anim_tree["parameters/conditions/is_jumping"] = false
 	anim_tree["parameters/conditions/damaged"] = false
+	anim_tree["parameters/conditions/dismantle"] = false
 	
 	#ATTACKING
 	if is_heavy_attacking:
