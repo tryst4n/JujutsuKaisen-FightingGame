@@ -10,13 +10,17 @@ extends CharacterBody2D
 @onready var CollisionShape = $CollisionShape2D
 @onready var HurtBoxCollisionShape = $Hurtbox/HurtBoxCollisionShape2D
 @onready var TongueCollisionShape = $Tongue/CollisionShape2D
+@onready var HitParticles = $HitParticles
+@onready var PlayerCamera = $"../Player/Camera2D"
+var HitParticlesFacingRight = -23
+var HitParticlesFacingLeft = 23
 var CollisionShapeFacingRight = -7
 var CollisionShapeFacingLeft = 7
 var HurtBoxCollisionShapeFacingRight = -7.5
 var HurtBoxCollisionShapeFacingLeft = 7.5
 var TongueCollisionShapeFacingRight = 7
 var TongueCollisionShapeFacingLeft = -7
-var health := 12
+var health := 4
 var can_attack := true
 var damaged = false
 var dying = false
@@ -33,6 +37,7 @@ func _ready():
 	add_to_group("enemies")
 	# Find the player automatically
 	player = get_tree().get_root().find_child("Player", true, false) #looks everywhere starting in this scene until it finds Player
+	
 	
 func _process(_delta):
 	update_animation_parameters()
@@ -80,8 +85,9 @@ func _physics_process(delta):
 func take_spear_damage(globalPosPlayer):
 	damaged = true
 	var damage = 4
-	#Knockback
+	#Knockback + particles
 	receive_knockback(globalPosPlayer, damage)
+	hitParticles(globalPosPlayer)
 	#damage output
 	health -= damage
 	print("Enemy took Heavy damage, HP =", health)
@@ -94,8 +100,9 @@ func take_spear_damage(globalPosPlayer):
 func take_punch_damage(globalPosPlayer):
 	damaged = true
 	var damage = 1
-	#Knockback
+	#Knockback + particles + cameraShake
 	receive_knockback(globalPosPlayer, damage)
+	hitParticles(globalPosPlayer)
 	#damage output
 	health -= damage
 	print("Enemy took Light damage, HP =", health)
@@ -117,7 +124,7 @@ func deathIfBelow0():
 		var body = CollisionShape.get_parent()
 		# Turn OFF all collision alayers so we can pass through him
 		body.set_collision_layer_value(2, false)
-		await get_tree().create_timer(1.4).timeout 
+		await get_tree().create_timer(1.4).timeout
 		queue_free()
 	
 	
@@ -157,6 +164,14 @@ func attack():
 	await get_tree().create_timer(0.2).timeout
 	TongueCollisionShape.disabled = true
 	is_attacking = false
+	
+func hitParticles(player_pos: Vector2):
+	var dir = (player_pos - global_position).normalized()  # enemy → player
+	dir.y = 0 #this enemy is always on the ground so i dont want the player's height to affect where the particles come out fromaa
+	$HitParticles.rotation = dir.angle()
+	$HitParticles.emitting = true
+	$HitParticles.restart()
+
 
 func update_facing_direction(facing):
 	if facing == "left" :
@@ -164,11 +179,13 @@ func update_facing_direction(facing):
 		CollisionShape.position.x = CollisionShapeFacingLeft
 		HurtBoxCollisionShape.position.x = HurtBoxCollisionShapeFacingLeft
 		TongueCollisionShape.position.x = TongueCollisionShapeFacingLeft
+		HitParticles.position.x = HitParticlesFacingLeft
 	else :
 		sprite.flip_h = false
 		CollisionShape.position.x = CollisionShapeFacingRight
 		HurtBoxCollisionShape.position.x = HurtBoxCollisionShapeFacingRight
 		TongueCollisionShape.position.x = TongueCollisionShapeFacingRight
+		HitParticles.position.x = HitParticlesFacingRight
 	
 func update_animation_parameters():
 	#if damaged is priority

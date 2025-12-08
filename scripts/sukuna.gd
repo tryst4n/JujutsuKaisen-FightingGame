@@ -81,11 +81,12 @@ func take_tongue_damage(globalPosEnemy):
 	#damage output
 	var damage = 1
 	#Knockback
-	receive_knockback(globalPosEnemy, damage)
-	health -= damage
+	if health > 0:
+		receive_knockback(globalPosEnemy, damage)
+		health -= damage
 	print("Sukuna took Light damage, HP =", health)
 	
-	#die if health is below 0
+	#die if health is below 0aa
 	deathIfBelow0()
 	await get_tree().create_timer(0.2).timeout 
 	damaged = false

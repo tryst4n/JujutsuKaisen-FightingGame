@@ -28,9 +28,3 @@ script = ExtResource("2_lnu2h")
 
 [node name="cursedSpirit" parent="." instance=ExtResource("2_yqjtg")]
 position = Vector2(538, 417)
-
-[node name="cursedSpirit2" parent="." instance=ExtResource("2_yqjtg")]
-position = Vector2(791.18054, 328.99445)
-
-[node name="cursedSpirit3" parent="." instance=ExtResource("2_yqjtg")]
-position = Vector2(395.08893, 338.964)
